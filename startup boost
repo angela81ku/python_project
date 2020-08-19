@@ -19,14 +19,14 @@ while (opensth) in stodoliestekey:
   if (opensth) == "1":
     os.startfile("D:\\Learning Material (excel job eng)\\python\\pyt332r")
     firefox = webbrowser.Mozilla("C:\\Program Files\\Mozilla Firefox\\firefox.exe")
-    firefox.open("http://homepage.ntu.edu.tw/~jfanc/Python.html?clsp=pyt332r")
-    webbrowser.open("https://docs.google.com/document/d/1vp_9LoajaW426evZOO3SkbQaQvGaHR2byzFT8_oATZE/edit#")
-    webbrowser.open("https://colab.research.google.com/drive/12oyOwTT0RPrAXYc5NoSnZNwynaqFSPZM#scrollTo=8znlaQ1QN1X1")
+    firefox.open("http://homepage.ntu.edu.tw/~jfanc/...")
+    webbrowser.open("https://docs.google.com/document/d/...#")
+    webbrowser.open("https://colab.research.google.com/drive/...")
     print("open ",todoliste[int(opensth)] )
   elif (opensth) == "2":
-    webbrowser.open("https://docs.google.com/document/d/1DuB58xoimIoXA3vbXwrIv8jt4BYumGcD5QbKBwvyVEQ/edit")
-    webbrowser.open("https://docs.google.com/document/d/14_UAADh1pE-cfaAYMoLondEELIky-Y2LNL8Xd2QTm-w/edit#")
-    webbrowser.open("https://docs.google.com/document/d/1Rh_uejIUsJvBpQy-Xabb4JHdxaZF0zEVHmtJ7Wz1Ls0/edit")
+    webbrowser.open("https://docs.google.com/document/d/...")
+    webbrowser.open("https://docs.google.com/document/d/...")
+    webbrowser.open("https://docs.google.com/document/d/...")
     print("open ",todoliste[int(opensth)] )
   elif opensth =="3":
     os.startfile("C:\\Users\\[user name]\\Desktop\\XX")
