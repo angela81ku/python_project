@@ -1,0 +1,37 @@
+# This can help you open the files related to the job you predefined while startup the computer, change the todolist to what you want
+# change the file address to the one you're used.
+# If you are using windows, press windows+R -> type: "shell:startup" -> paste the shortcup of this file (be sure you use Python as the default one to open the file)
+# 簡單的小程式，幫助我這個都捨不得關機的人可以輕鬆關機，不用擔心下次啟動又要把想要的檔案或是網址再開起來一次
+
+import os
+import webbrowser
+
+todolist = ["Learn from Chang python","English Learning","Application"]
+todoliste = dict(enumerate(todolist,1))
+todolistekey = list(todoliste.keys())
+stodoliestekey=[str(e) for e in todolistekey]
+
+print('What do you have in mind?\nPlease choose from the following : \n',todoliste)
+opensth = "1"
+
+while (opensth) in stodoliestekey:
+  opensth = (input("Press number to enter the activity you would like to do and press any key excecpt for legal number to leave\n"))
+  if (opensth) == "1":
+    os.startfile("D:\\Learning Material (excel job eng)\\python\\pyt332r")
+    firefox = webbrowser.Mozilla("C:\\Program Files\\Mozilla Firefox\\firefox.exe")
+    firefox.open("http://homepage.ntu.edu.tw/~jfanc/Python.html?clsp=pyt332r")
+    webbrowser.open("https://docs.google.com/document/d/1vp_9LoajaW426evZOO3SkbQaQvGaHR2byzFT8_oATZE/edit#")
+    webbrowser.open("https://colab.research.google.com/drive/12oyOwTT0RPrAXYc5NoSnZNwynaqFSPZM#scrollTo=8znlaQ1QN1X1")
+    print("open ",todoliste[int(opensth)] )
+  elif (opensth) == "2":
+    webbrowser.open("https://docs.google.com/document/d/1DuB58xoimIoXA3vbXwrIv8jt4BYumGcD5QbKBwvyVEQ/edit")
+    webbrowser.open("https://docs.google.com/document/d/14_UAADh1pE-cfaAYMoLondEELIky-Y2LNL8Xd2QTm-w/edit#")
+    webbrowser.open("https://docs.google.com/document/d/1Rh_uejIUsJvBpQy-Xabb4JHdxaZF0zEVHmtJ7Wz1Ls0/edit")
+    print("open ",todoliste[int(opensth)] )
+  elif opensth =="3":
+    os.startfile("C:\\Users\\[user name]\\Desktop\\XX")
+    os.startfile("C:\\Users\\[user name]\\Desktop\\XX\\OO.xlsx")
+    print("open ",todoliste[int(opensth)] )
+  else:
+    print("Exit. Have a good day4:D ")
+    break
