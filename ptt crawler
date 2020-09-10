@@ -1,0 +1,107 @@
+#做一個可以到各大看板的
+import requests
+from bs4 import BeautifulSoup
+class WebtoHotSpot():
+  """ 
+  This is a ptt hot-spot choosing system.
+  Use "self.get_hotspot",to see the updated hot spots please notice that do not add(), to see the most updated hot spot.
+  get_weburl(self) can present you the website you are going to process
+  set_webtitle(self,newwebtitle) can set a new webtitle the default would be "marriage" which is the author now interested in.
+   """
+  def __init__(self, webtitle = "marriage"):
+        
+      self.webtitle = webtitle
+      url ="https://www.ptt.cc/bbs/index.html"
+      Webpage = requests.get(url)
+      soup = BeautifulSoup(Webpage.text,'html5lib')
+      line = soup.find_all(class_='board-name')
+      
+      s = ""
+      web = ""
+      for le in line:
+        s += le.text.strip()+'\n'
+      s.split("\n")
+      slist = list(s.split("\n"))
+      sedict = dict(enumerate(slist,1))
+      
+      self.get_hotspot = sedict
+      self.url = "https://www.ptt.cc/bbs/marriage/index.html"
+
+  def get_weburl(self):
+    return self.url
+  def get_sitetitle(self):
+    return self.webtitle
+  def set_weburl(self,option):
+    """
+    choose from the key of the webtitle,
+    please put an integer as an argument
+    """
+
+    if option in self.get_hotspot:
+      self.webtitle = self.get_hotspot[option]
+      url ="https://www.ptt.cc/bbs/"+str(self.webtitle)+"/index.html"
+      self.url = url
+      return self.url
+    else:
+      errormes = "Please enter an existed one, use the method get_webtitle to see what is allowed to crawl, Also please make sure you enter a number in the hot spot dict"
+      return errormes
+  def get_latestpageindex(self):
+    # from https://ithelp.ithome.com.tw/articles/10204709
+    r = requests.get(self.url)
+    soup = BeautifulSoup(r.text,"html.parser")
+    btn = soup.select('div.btn-group > a')
+    try:
+      previous_page_href = btn[3]['href']
+    except:
+      print("sorry you can't access this page, due to 18 years old limitation QQ, please try other number ")
+    latest_page_url = 'https://www.ptt.cc'+previous_page_href
+    lastpage=''.join([x for x in latest_page_url if x.isdigit()])
+    return str(int(lastpage)+1)
+
+#########################################################################################################
+print("Please choose from the following websites")
+try1 = WebtoHotSpot()
+#來看看現在有什麼熱門看板可以選
+print(try1.get_hotspot)
+spotyoulike = int(input("Input the index of the site you're interested in : "))
+print(try1.set_weburl(spotyoulike))
+lastpage= int(try1.get_latestpageindex())
+sitetitle = try1.get_sitetitle()
+##########################################################################################################
+def web_crawling(sitetitle,sIndexm):
+  url ="https://www.ptt.cc/bbs/"+sitetitle+"/index"+sIndexm+".html"
+  Webpage = requests.get(url)
+  soup = BeautifulSoup(Webpage.text,'html5lib')
+  line = soup.find_all(class_='title')
+  s = ""
+  web = ""
+  for le in line:
+    s += le.text.strip()+'\n'
+    try:
+      web += le.a['href']+'\n'
+    except:
+      web += "None"
+
+  slist = s.split("\n")
+  weblist = web.split("\n")
+  dictforweb = dict(zip(weblist,slist))
+  return dictforweb
+#將每一頁的標題都拆出來###################################################################################
+titleresult=[]
+allresult={}
+npagetocrawl = int(input("how many pages do you want to crawl : "))
+torall = int(input("Please put: 1 here to indicate you want to crawl title only, 2 here to crawl title and weburl : "))
+while True:
+  if torall == 1:
+    for i in range(lastpage-npagetocrawl+1,lastpage+1):
+      titleresult.extend(list(web_crawling(sitetitle,str(i)).values()))
+    print(titleresult)
+    break
+  elif torall == 2:
+    for i in range(lastpage-npagetocrawl+1,lastpage+1):
+      allresult.update(web_crawling(sitetitle,str(i)))
+    print(allresult)
+    break
+  else:
+    print("try type number 1 or 2")
+    torall = int(input("Please put: 1 here to indicate you want to crawl title only, 2 here to crawl title and weburl : "))  
